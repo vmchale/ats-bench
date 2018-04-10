@@ -117,19 +117,23 @@ fun regress(pairs : List_vt(pair)) : regression =
     @{ intercept = intercept, slope = slope }
   end
 
+fun seq {n:nat}(i : int(n)) : list_vt(int, n) =
+  case+ i of
+    | 0 => nil
+    | n => n :: seq(n - 1)
+
+// infixr 60 **
 fun create_pairs(d : io) : List_vt(pair) =
   let
-    fun loop {n:nat} .<n>. (i : int(n), d : io) : list_vt(pair, n / 3) =
-      case+ i of
-        | 1 => @{ x = 1.0, y = create_entry(1, delay) } :: nil
-        | i =>> let
-          val nd = gnumber_int<double>(i)
-        in
-          @{ x = nd, y = create_entry(i, delay) }
-        end
-        :: loop(i / 3, d)
+    val pre_seq = seq(6)
+    val correct = list_vt_mapfree_cloref(pre_seq, lam n =<cloref1> (3 ** $UN.cast(n)))
+    val pairs = list_vt_mapfree_cloref(correct, lam n => let
+                                        val nd = gnumber_int<double>(n)
+                                      in
+                                        @{ x = nd, y = create_entry($UN.cast(n), delay) }
+                                      end)
   in
-    loop(729, d)
+    pairs
   end
 
 fun get_slope(d : io) : double =

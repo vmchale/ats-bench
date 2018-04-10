@@ -1,5 +1,3 @@
 # ats-bench
 
-## Installation
-
-## Configuration
+Demonstration of accurate benchmarking within ATS.
