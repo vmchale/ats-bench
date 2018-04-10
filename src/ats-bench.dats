@@ -60,9 +60,9 @@ fun expensive_computation() : void =
     fun loop(n : intGt(0)) : int =
       case+ n of
         | 1 => 1
-        | n => n + loop(n - 1)
+        | n =>> n + loop(n - 1)
     
-    val _ = loop(10000)
+    val i = loop(1000000)
   in end
 
 val delay: io = lam () => expensive_computation()
