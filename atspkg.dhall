@@ -2,7 +2,7 @@ let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dh
 
 
 in prelude.default ⫽
-  { tests =
+  { test =
     [ prelude.bin ⫽
       { src = "bench.dats"
       , target = "target/bench"
