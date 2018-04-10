@@ -1,6 +1,7 @@
 # ats-bench
 
-Demonstration of accurate benchmarking within ATS.
+Demonstration of accurate benchmarking within ATS. In particular, this package
+provides some regression-based functionality.
 
 ## Demo
 
