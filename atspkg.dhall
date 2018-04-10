@@ -1,10 +1,9 @@
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 
-
 in prelude.default ⫽
   { test =
     [ prelude.bin ⫽
-      { src = "bench.dats"
+      { src = "test/bench.dats"
       , target = "target/bench"
       }
     ]

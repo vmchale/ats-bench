@@ -1,7 +1,3 @@
-#include "share/HATS/atspre_staload_prelude.hats"
-#include "share/HATS/atspre_staload_libats_ML.hats"
-#include "share/HATS/atslib_staload_libats_libc.hats"
-
 staload "libats/ML/SATS/atspre.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
@@ -89,7 +85,7 @@ fun sum(xs : !List_vt(double)) : double =
                                  , lam (acc, next) =<cloptr1> acc + next
                                  )
 
-// TODO make this a SATS file.
+// TODO collect more data here (e.g. r^2, etc.)
 fun regress(pairs : List_vt(pair)) : regression =
   let
     val n = list_vt_length(pairs)
@@ -138,11 +134,3 @@ fun get_slope(d : io) : double =
   in
     pairs.slope
   end
-
-// TODO: linear regression: 1, 3, 9, 27, 81 times?
-implement main0 () =
-  {
-    val d = get_slope(delay)
-    val _ = print("estimate: ")
-    val _ = display_time(d)
-  }
