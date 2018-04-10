@@ -86,24 +86,24 @@ fun sum(xs : !List_vt(double)) : double =
                                  )
 
 // TODO collect more data here (e.g. r^2, etc.)
-fun regress(pairs : List_vt(pair)) : regression =
+fn regress(pairs : List_vt(pair)) : regression =
   let
-    val n = list_vt_length(pairs)
-    val ys = list_vt_map_cloref(pairs, lam p =<cloref1> p.y)
-    val xs = list_vt_map_cloref(pairs, lam p =<cloref1> p.x)
-    val xys = list_vt_map_cloref(pairs, lam p =<cloref1> p.x * p.y)
-    val xxs = list_vt_mapfree_cloref(pairs, lam p =<cloref1> p.x * p.x)
-    val sigma_y = sum(ys)
-    val sigma_x = sum(xs)
-    val sigma_xy = sum(xys)
-    val sigma_xx = sum(xxs)
+    var n = list_vt_length(pairs)
+    var ys = list_vt_map_cloref(pairs, lam p =<cloref1> p.y)
+    var xs = list_vt_map_cloref(pairs, lam p =<cloref1> p.x)
+    var xys = list_vt_map_cloref(pairs, lam p =<cloref1> p.x * p.y)
+    var xxs = list_vt_mapfree_cloref(pairs, lam p =<cloref1> p.x * p.x)
+    var sigma_y = sum(ys)
+    var sigma_x = sum(xs)
+    var sigma_xy = sum(xys)
+    var sigma_xx = sum(xxs)
     val _ = list_vt_free(ys)
     val _ = list_vt_free(xs)
     val _ = list_vt_free(xys)
     val _ = list_vt_free(xxs)
-    val denom = (n * sigma_xx - sigma_x * sigma_x)
-    val intercept = (sigma_y * sigma_xx - sigma_x * sigma_xy) / denom
-    val slope = (n * sigma_xy - sigma_x * sigma_y) / denom
+    var denom = (n * sigma_xx - sigma_x * sigma_x)
+    var intercept = (sigma_y * sigma_xx - sigma_x * sigma_xy) / denom
+    var slope = (n * sigma_xy - sigma_x * sigma_y) / denom
   in
     @{ intercept = intercept, slope = slope }
   end
@@ -113,9 +113,9 @@ fun seq {n:nat} .<n>. (i : int(n)) : list_vt(int, n) =
     | 0 => nil
     | n =>> (n - 1) :: seq(n - 1)
 
-fun create_pairs(d : io) : List_vt(pair) =
+fn create_pairs(d : io) : List_vt(pair) =
   let
-    val pre_seq = seq(6)
+    val pre_seq = seq(8)
     val correct = list_vt_mapfree_cloref( pre_seq
                                         , lam n =<cloref1> (3 ** $UN.cast(n))
                                         )
@@ -128,7 +128,7 @@ fun create_pairs(d : io) : List_vt(pair) =
     pairs
   end
 
-fun get_slope(d : io) : double =
+fn get_slope(d : io) : double =
   let
     val pairs = regress(create_pairs(d))
   in
