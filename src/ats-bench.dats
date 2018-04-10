@@ -35,10 +35,10 @@ int microseconds() {
 //   [l:addr] (a@l, a@l -<lin,prf> void | ptr l)
 typedef io = () -> void
 
-fun display_time(x : int) : void =
+fun display_time(x : double) : void =
   ifcase
-    | x >= 1000000 => println!(gnumber_int<double>(x) / 1000000, " s")
-    | x >= 1000 => println!(gnumber_int<double>(x) / 1000, " ms")
+    | x >= 1000000 => println!(x / 1000000, " s")
+    | x >= 1000 => println!(x / 1000, " ms")
     | _ => println!(x, " μs")
 
 fun bench_f(n : intGt(0), x : io) : int =
@@ -68,8 +68,16 @@ fun expensive_computation() : void =
 
 val delay: io = lam () => expensive_computation()
 
+fun create_entry(n : intGt(0), x : io) : double =
+  let
+    val pre_d = bench_f(n, x)
+  in
+    gnumber_int<double>(pre_d)
+  end
+
+// TODO: linear regression: 1, 3, 9, 27, 81 times?
 implement main0 () =
   {
-    val d = bench_f(1, delay)
+    val d = create_entry(27, delay) / 27
     val _ = display_time(d)
   }
