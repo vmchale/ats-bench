@@ -9,5 +9,4 @@ in prelude.default ⫽
       }
     ]
   , compiler = [0,3,10]
-  , extSolve = prelude.ignore
   }

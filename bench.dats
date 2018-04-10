@@ -95,6 +95,7 @@ fun sum(xs : !List_vt(double)) : double =
                                  , lam (acc, next) =<cloptr1> acc + next
                                  )
 
+// TODO make this a SATS file.
 fun regress(pairs : List_vt(pair)) : regression =
   let
     val n = list_vt_length(pairs)
@@ -117,16 +118,17 @@ fun regress(pairs : List_vt(pair)) : regression =
     @{ intercept = intercept, slope = slope }
   end
 
-fun seq {n:nat}(i : int(n)) : list_vt(int, n) =
+fun seq {n:nat} .<n>. (i : int(n)) : list_vt(int, n) =
   case+ i of
     | 0 => nil
-    | n => n :: seq(n - 1)
+    | n =>> (n - 1) :: seq(n - 1)
 
-// infixr 60 **
 fun create_pairs(d : io) : List_vt(pair) =
   let
     val pre_seq = seq(6)
-    val correct = list_vt_mapfree_cloref(pre_seq, lam n =<cloref1> (3 ** $UN.cast(n)))
+    val correct = list_vt_mapfree_cloref( pre_seq
+                                        , lam n =<cloref1> (3 ** $UN.cast(n))
+                                        )
     val pairs = list_vt_mapfree_cloref(correct, lam n => let
                                         val nd = gnumber_int<double>(n)
                                       in
