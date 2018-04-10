@@ -65,7 +65,7 @@ fun expensive_computation() : void =
     val _ = loop(10000)
   in end
 
-val delay: io = lam () => expensive_comutation()
+val delay: io = lam () => expensive_computation()
 
 implement main0 () =
   {
