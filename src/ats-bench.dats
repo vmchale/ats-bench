@@ -63,6 +63,7 @@ fun expensive_computation() : void =
         | n =>> n + loop(n - 1)
     
     val i = loop(1000000)
+    val _ = tostring_int(i)
   in end
 
 val delay: io = lam () => expensive_computation()
