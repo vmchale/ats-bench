@@ -9,10 +9,6 @@ staload UN = "prelude/SATS/unsafe.sats"
 #define nil list_vt_nil
 
 extern
-fun same(int) : intGt(0) =
-  "ext#"
-
-extern
 fun start_timer() : void =
   "ext#"
 
@@ -39,8 +35,6 @@ int microseconds() {
   int us = now.tv_usec - timer.tv_usec;
   return (1000000 * secs + us);
 }
-
-int same(int x) { return x; }
 %}
 
 //   [l:addr] (a@l, a@l -<lin,prf> void | ptr l)
@@ -81,7 +75,7 @@ val delay: io = lam () => expensive_computation()
 
 fun create_entry(n : int, x : io) : double =
   let
-    val pre_d = bench_f(same(n), x)
+    val pre_d = bench_f($UN.cast(n), x)
   in
     gnumber_int<double>(pre_d)
   end
