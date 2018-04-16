@@ -18,5 +18,5 @@ val delay: io = lam () => expensive_computation()
 
 implement main0 () =
   {
-    val _ = print_slope("dummy", delay)
+    val _ = print_slope("dummy", 8, delay)
   }

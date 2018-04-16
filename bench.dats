@@ -97,9 +97,9 @@ fun seq {n:nat} .<n>. (i : int(n)) : list_vt(int, n) =
     | 0 => nil
     | n =>> (n - 1) :: seq(n - 1)
 
-fn create_pairs(d : io) : List_vt(pair) =
+fn create_pairs {n:nat}(n : int(n), d : io) : List_vt(pair) =
   let
-    var pre_seq = seq(10)
+    var pre_seq = seq(n)
     var correct = list_vt_mapfree_cloref(pre_seq, lam n =<cloref1> (3 ** $UN.cast(n)))
     var pairs = list_vt_mapfree_cloref(correct, lam n => let
                                         var nd = gnumber_int<double>(n)
@@ -111,16 +111,16 @@ fn create_pairs(d : io) : List_vt(pair) =
   end
 
 // TODO figure out pretty display for it all?
-fn get_slope(d : io) : double =
+fn get_slope {n:nat}(n : int(n), d : io) : double =
   let
-    var pairs = regress(create_pairs(d))
+    var pairs = regress(create_pairs(n, d))
   in
     pairs.slope
   end
 
-fn print_slope(s : string, d : io) : void =
+fn print_slope {n:nat}(s : string, n : int(n), d : io) : void =
   {
-    val sl = get_slope(d)
+    val sl = get_slope(n, d)
     val _ = print("\33[33m" + s + "\33[0m\n    estimate: ")
     val _ = display_time(sl)
   }
