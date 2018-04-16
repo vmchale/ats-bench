@@ -41,7 +41,7 @@ fun display_time(x : double) : void =
     | x >= 1000000 => println!(x / 1000000, " s")
     | x >= 1000 => println!(x / 1000, " ms")
     | x >= 1 => println!(x, " μs")
-    | _ => println1(x * 1000, " ns")
+    | _ => println!(x * 1000, " ns")
 
 fun bench_f(n : intGt(0), x : io) : int =
   let
