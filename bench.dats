@@ -1,4 +1,5 @@
 staload "libats/ML/SATS/atspre.sats"
+staload "libats/ML/SATS/string.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
 #define :: list_vt_cons
@@ -33,7 +34,6 @@ int microseconds() {
 }
 %}
 
-//   [l:addr] (a@l, a@l -<lin,prf> void | ptr l)
 typedef io = () -> void
 
 fun display_time(x : double) : void =
@@ -44,7 +44,7 @@ fun display_time(x : double) : void =
 
 fun bench_f(n : intGt(0), x : io) : int =
   let
-    val before = start_timer()
+    var before = start_timer()
     
     fun loop { n : nat | n > 0 } .<n>. (n : int(n), x : io) : void =
       case+ n of
@@ -56,6 +56,7 @@ fun bench_f(n : intGt(0), x : io) : int =
     microseconds()
   end
 
+// TODO something else idk.
 fun expensive_computation() : void =
   let
     fun loop(n : intGt(0)) : int =
@@ -63,15 +64,15 @@ fun expensive_computation() : void =
         | 1 => 1
         | n =>> n + loop(n - 1)
     
-    val i = loop(1000000)
-    val _ = tostring_int(i)
+    var i = loop(1000000)
+    var _ = tostring_int(i)
   in end
 
 val delay: io = lam () => expensive_computation()
 
 fun create_entry(n : int, x : io) : double =
   let
-    val pre_d = bench_f($UN.cast(n), x)
+    var pre_d = bench_f($UN.cast(n), x)
   in
     gnumber_int<double>(pre_d)
   end
@@ -80,10 +81,7 @@ typedef regression = @{ intercept = double, slope = double }
 typedef pair = @{ x = double, y = double }
 
 fun sum(xs : !List_vt(double)) : double =
-  list_vt_foldleft_cloptr<double>( xs
-                                 , 0.0
-                                 , lam (acc, next) =<cloptr1> acc + next
-                                 )
+  list_vt_foldleft_cloptr<double>(xs, 0.0, lam (acc, next) =<cloptr1> acc + next)
 
 // TODO collect more data here (e.g. r^2, etc.)
 fn regress(pairs : List_vt(pair)) : regression =
@@ -115,12 +113,10 @@ fun seq {n:nat} .<n>. (i : int(n)) : list_vt(int, n) =
 
 fn create_pairs(d : io) : List_vt(pair) =
   let
-    val pre_seq = seq(8)
-    val correct = list_vt_mapfree_cloref( pre_seq
-                                        , lam n =<cloref1> (3 ** $UN.cast(n))
-                                        )
-    val pairs = list_vt_mapfree_cloref(correct, lam n => let
-                                        val nd = gnumber_int<double>(n)
+    var pre_seq = seq(8)
+    var correct = list_vt_mapfree_cloref(pre_seq, lam n =<cloref1> (3 ** $UN.cast(n)))
+    var pairs = list_vt_mapfree_cloref(correct, lam n => let
+                                        var nd = gnumber_int<double>(n)
                                       in
                                         @{ x = nd, y = create_entry($UN.cast(n), delay) }
                                       end)
@@ -128,9 +124,17 @@ fn create_pairs(d : io) : List_vt(pair) =
     pairs
   end
 
+// TODO figure out pretty display for it all?
 fn get_slope(d : io) : double =
   let
-    val pairs = regress(create_pairs(d))
+    var pairs = regress(create_pairs(d))
   in
     pairs.slope
   end
+
+fn print_slope(s : string, d : io) : void =
+  {
+    val sl = get_slope(d)
+    val _ = print("\33[33m" + s + "\33[0m\n    estimate: ")
+    val _ = display_time(sl)
+  }

@@ -5,7 +5,5 @@
 
 implement main0 () =
   {
-    val d = get_slope(delay)
-    val _ = print("estimate: ")
-    val _ = display_time(d)
+    val _ = print_slope("dummy", delay)
   }
