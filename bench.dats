@@ -56,20 +56,6 @@ fun bench_f(n : intGt(0), x : io) : int =
     microseconds()
   end
 
-// TODO something else idk.
-fun expensive_computation() : void =
-  let
-    fun loop(n : intGt(0)) : int =
-      case+ n of
-        | 1 => 1
-        | n =>> n + loop(n - 1)
-    
-    var i = loop(1000000)
-    var _ = tostring_int(i)
-  in end
-
-val delay: io = lam () => expensive_computation()
-
 fun create_entry(n : int, x : io) : double =
   let
     var pre_d = bench_f($UN.cast(n), x)
@@ -118,7 +104,7 @@ fn create_pairs(d : io) : List_vt(pair) =
     var pairs = list_vt_mapfree_cloref(correct, lam n => let
                                         var nd = gnumber_int<double>(n)
                                       in
-                                        @{ x = nd, y = create_entry($UN.cast(n), delay) }
+                                        @{ x = nd, y = create_entry($UN.cast(n), d) }
                                       end)
   in
     pairs
