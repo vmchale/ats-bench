@@ -99,7 +99,7 @@ fun seq {n:nat} .<n>. (i : int(n)) : list_vt(int, n) =
 
 fn create_pairs(d : io) : List_vt(pair) =
   let
-    var pre_seq = seq(8)
+    var pre_seq = seq(10)
     var correct = list_vt_mapfree_cloref(pre_seq, lam n =<cloref1> (3 ** $UN.cast(n)))
     var pairs = list_vt_mapfree_cloref(correct, lam n => let
                                         var nd = gnumber_int<double>(n)
