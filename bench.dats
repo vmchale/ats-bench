@@ -1,3 +1,7 @@
+#include "share/HATS/atspre_staload_prelude.hats"
+#include "share/HATS/atspre_staload_libats_ML.hats"
+#include "share/HATS/atslib_staload_libats_libc.hats"
+
 staload "libats/ML/SATS/atspre.sats"
 staload "libats/ML/SATS/string.sats"
 staload UN = "prelude/SATS/unsafe.sats"
