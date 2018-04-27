@@ -126,6 +126,6 @@ fn get_slope {n:nat}(n : int(n), d : io) : double =
 fn print_slope {n:nat}(s : string, n : int(n), d : io) : void =
   {
     val sl = get_slope(n, d)
-    val _ = print("\33[33m" + s + "\33[0m\n    estimate: ")
+    val _ = print("\33[32m" + s + "\33[0m\n    estimate: ")
     val _ = display_time(sl)
   }
