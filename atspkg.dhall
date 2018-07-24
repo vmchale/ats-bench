@@ -5,7 +5,7 @@ in
 prelude.default ⫽
   { libraries =
     [
-      prelude.staticLib ⫽ 
+      prelude.staticLib ⫽
       { name = "atsbench"
       , libTarget = "target/libatsbench.a"
       , src = [ "bench.dats" ]

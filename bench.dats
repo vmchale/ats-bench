@@ -106,7 +106,7 @@ fn create_pairs {n:nat}(n : int(n), d : io) : List_vt(pair) =
   let
     var pre_seq = seq(n)
     var correct = list_vt_mapfree_cloref(pre_seq, lam n =<cloref1> (3 ** $UN.cast(n)))
-    var pairs = list_vt_mapfree_cloref(correct, lam n => let
+    var pairs = list_vt_mapfree_cloref(correct, lam n =<cloref1> let
                                         var nd = gnumber_int<double>(n)
                                       in
                                         @{ x = nd, y = create_entry($UN.cast(n), d) }
@@ -123,7 +123,7 @@ fn get_slope {n:nat}(n : int(n), d : io) : double =
     pairs.slope
   end
 
-fn get_slope_t {a:t@ype}{n:nat}(n : int(n), f : a -> void, x : a) : double =
+fn get_slope_t {a:t@ype}{n:nat}(n : int(n), f : a -<cloref1> void, x : a) : double =
   let
     val io_ = lam () => f(x)
   in
