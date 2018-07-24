@@ -5,10 +5,8 @@
 staload "libats/ML/SATS/atspre.sats"
 staload "libats/ML/SATS/string.sats"
 staload UN = "prelude/SATS/unsafe.sats"
-
 #define :: list_vt_cons
 #define nil list_vt_nil
-
 extern
 fun start_timer() : void =
   "ext#"
@@ -123,13 +121,14 @@ fn get_slope {n:nat}(n : int(n), d : io) : double =
     pairs.slope
   end
 
+(*
 fn get_slope_t {a:t@ype}{n:nat}(n : int(n), f : a -<cloref1> void, x : a) : double =
   let
     val io_ = lam () => f(x)
   in
     get_slope(n, io_)
   end
-
+*)
 fn print_slope {n:nat}(s : string, n : int(n), d : io) : void =
   {
     val sl = get_slope(n, d)
@@ -137,8 +136,9 @@ fn print_slope {n:nat}(s : string, n : int(n), d : io) : void =
     val _ = display_time(sl)
   }
 
+(*
 fn print_slope_t {n:nat}{a:t@ype}(s : string, n : int(n), f : a -<cloref1> void, x : a) : void =
   {
     val io_ = lam () => f(x)
     val _ = print_slope(s, n, io_)
-  }
+  }*)
