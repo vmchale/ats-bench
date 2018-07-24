@@ -137,7 +137,7 @@ fn print_slope {n:nat}(s : string, n : int(n), d : io) : void =
     val _ = display_time(sl)
   }
 
-fn print_slope_t {n:nat}{a:t@ype}(s : string, n : int(n), f : a -> void, x : a) : void =
+fn print_slope_t {n:nat}{a:t@ype}(s : string, n : int(n), f : a -<cloref1> void, x : a) : void =
   {
     val io_ = lam () => f(x)
     val _ = print_slope(s, n, io_)
