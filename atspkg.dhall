@@ -3,11 +3,11 @@ let prelude =
 
 in    prelude.default
     ⫽ { libraries =
-          [   prelude.staticLib
-            ⫽ { name = "atsbench"
-              , libTarget = "target/libatsbench.a"
-              , src = [ "bench.dats" ]
-              }
-          ]
+        [   prelude.staticLib
+          ⫽ { name = "atsbench"
+            , libTarget = "target/libatsbench.a"
+            , src = [ "bench.dats" ]
+            }
+        ]
       , cflags = [ "-O2" ]
       }
