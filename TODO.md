@@ -1,0 +1,2 @@
+- [ ] Collect more data (e.g. mean)
+- [ ] better library; `SATS` &c.
