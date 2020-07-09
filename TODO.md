@@ -1,0 +1,1 @@
+- [ ] Report r^2 as in criterion
