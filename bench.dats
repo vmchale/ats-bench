@@ -97,14 +97,14 @@ fn regress(pairs : List_vt(pair)) : regression =
     @{ intercept = intercept, slope = slope }
   end
 
-fun seq {n:nat} .<n>. (i : int(n)) : list_vt(int, n) =
+fun iota {n:nat} .<n>. (i : int(n)) : list_vt(int, n) =
   case+ i of
     | 0 => nil
-    | n =>> (n - 1) :: seq(n - 1)
+    | n =>> (n - 1) :: iota(n - 1)
 
 fn create_pairs {n:nat}(n : int(n), d : io) : List_vt(pair) =
   let
-    var pre_seq = seq(n)
+    var pre_seq = iota(n)
     var correct = list_vt_mapfree_cloref(pre_seq, lam n =<cloref1> (3 ** $UN.cast(n)))
     var pairs = list_vt_mapfree_cloref(correct, lam n =<cloref1> let
                                         var nd = gnumber_int<double>(n)

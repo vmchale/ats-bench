@@ -1,1 +1,3 @@
 - [ ] Report r^2 as in criterion
+- [ ] Collect more data (e.g. mean)
+- [ ] better library; `SATS` &c.
